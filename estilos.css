@@ -14,3 +14,11 @@ ol {	font-size: 20px;}
 a:link	{color: yellow;}
 
 a:visited	{color:white;}
+
+img.lado{
+	float: left;
+}
+
+p.conversor{
+	font-size: 25px;
+}

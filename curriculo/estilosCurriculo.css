@@ -1,4 +1,7 @@
 body	{	background-color: white;}
 h1	{	font-size: 35px;}
 h2, h3, h4, h5, h6	{	font-size: 20px;}
-hr	{	
+
+img.lado{
+    float: left;
+}
