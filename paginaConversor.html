@@ -7,10 +7,34 @@
 		<marquee scrollamount="10px">CORVERSOR DE GRAUS</marquee>
 		<a href="index.html"><img class="setas" src="imagens/seta_volta.png" alt="seta de volta"></a><br>
 		<img src="imagens/graus.png" alt="graus" class="lado">
-		<p>Esse é um programa que converte graus celsius em outras unidade de medida de temperatura como, Fahrenheit's, Kelvin's, etc</p><br>
-		Digite o valor a ser convertido: <input type="number" name="valor" id="valor">
+		<h1>Esse é um programa que converte graus celsius em outras unidades de medida como, Fahrenheit's, Kelvin's, etc.</h1>
+		<p>Digite o valor a ser convertido: <input type="number" name="valor" id="valor"> ºC <input type="button" value="Converter" id="bot1"></p>
+		<div id="F">
+			<!--Resposta em Fahrenheit-->
+		</div>
+		<div id="K">
+			<!--Resposta em Kelvin-->
+		</div>
+		<div id="Re">
+			<!--Resposta em Réaumur-->
+		</div>
+		<div id="Ra">
+			<!--Resposta em Rankine-->
+		</div>
 		<script>
-
+			var bot1 = document.getElementById("bot1")
+			bot1.addEventListener('click', converte)
+			function converte() {
+				var valor = Number(document.getElementById("valor").value)
+				var F = document.getElementById("F")
+				var K = document.querySelector("div#K")
+				var Re = document.getElementById("Re")
+				var Ra = document.getElementById("Ra")
+				F.innerHTML = `<p>${valor} ºC em Fahrenheit's é: ${valor*1.8+32} ºF</p>`
+				K.innerHTML = `<p>${valor} ºC em Kelvin's é: ${valor+237.15} K</p>`
+				Re.innerHTML = `<p>${valor} ºC em Réaumur é: ${valor*0.8} ºRé</p>`
+				Ra.innerHTML = `<p>${valor} ºC em Rankire é: ${(valor*1.8+32)+459.67} ºR</p>`
+			}
 		</script>
 	</body>
 </html>
