@@ -12,24 +12,51 @@
 	<a href="index.html"><img class="setas" src="imagens/seta_volta.png" alt="seta de volta"></a><br>
 	<img src="imagens/lupa.png" alt="graus" class="lado">
 	<h1>Esse é um programa que analisa as pessoas cadastradas pelo usuário e retorna a pessoa com maior altura, a média de idade dos homens e a quantidade de mulheres cadastradas.</h1>
-    <p>Digite quantas Pessoas vão ser cadastradas: <input type="number" name="pessoas" id="pessoas"> <input type="button" value="Começar" id="bot1"></p>
     <div id="box">
         <!--Caixa de cadastro-->
+        <p>Digite o sexo: (1-mulher 2-homem)<br><input type="number" id="sexo"></p>
+        <p>Digite a altura: <br><input type="number" id="altura" placeholder="1,50"> m</p>
+        <p><input type="button" value="Cadastrar" id="bot1"></p>
     </div>
     <script>
-        bot1 = document.getElementById("bot1")
-		bot1.addEventListener('click', cadastra)
-        function cadastra() {
-            var pessoas = Number(document.getElementById("pessoas").value)
-            var box = document.getElementById("box")
-            for (let index = 0; index < pessoas; index++) {
-                box.innerHTML = `<p>Digite o sexo: (1-mulher 2-homem)<br><input type="number" id="sexo"></p>`
-                var sexo = Number(document.getElementById("sexo").value)
-                box.innerHTML += `<p>Digite a altura: <br><input type="number" id="altura"></p>`
-                var altura = Number(document.getElementById("altura").value)
-                box.innerHTML += `<p><input type="button" value="Cadastrar"</p>`
+        bot1 = document.getElementById('bot1')
+        bot1.addEventListener('click', mostra)
+        var qntmulheres = 0
+        var qnthomens = 0
+        var soma = 0
+        var mediahomens = 0
+        var maior = 0
+        var menor = 10
+        var box = document.getElementById("box")
+        var sexo = Number(document.getElementById("sexo").value)
+        alert(`sexo ${sexo}`)
+        var altura = Number(document.getElementById("altura").value)
+        function mostra() {
+            alert(`sexo ${sexo}`)
+            if(sexo == 1) {
+                qntmulheres++
+            }else if (sexo == 2){
+                qnthomens++
+                soma = soma + altura
+            }else{
+                alert('Número do sexo inválido')
             }
-        }
+            if(altura > maior) {
+                maior = altura
+            }
+            if(altura < menor) {
+                menor = altura
+            }
+            if(qntmulheres != 0) {
+                box.innerHTML += `A quantidade de mulheres cadastradas foi: ${qntmulheres}<br>`
+            }
+            mediahomens = soma/qnthomens
+            if(qnthomens != 0) {
+                box.innerHTML += `A média de altura dos homens é: ${mediahomens}<br>`
+            }
+            if(maior != 0)
+            box.innerHTML += `A maior altura cadastrada foi: ${maior}m e a menor foi: ${menor}m`
+        } 
     </script>
 </body>
 </html>
