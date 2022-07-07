@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Estilos/estilos.css">
+</head>
+<body>
+    <marquee scrollamount="10px">ANALISADOR DE FUNCIONÁRIOS</marquee>
+	<a href="index.html"><img class="setas" src="imagens/seta_volta.png" alt="seta de volta"></a><br>
+	<img src="imagens/funcionarios.png" alt="graus" class="lado">
+	<h1>Esse é um programa que analisa o salário dos funcionários e calcula a média.</h1>
+    <div id="box">
+        <!--Caixa de cadastro-->
+        <p>Digite o salário do funcionário R$:<input type="number" id="salario" placeholder="1200,00"></p>
+        <p><input type="button" value="Cadastrar" id="bot1"></p>
+    </div>
+    <script>
+        bot1 = document.getElementById('bot1')
+        bot1.addEventListener('click', mostra)
+        var Somasalario = 0
+        var nfuncionarios = 0
+        function mostra() {
+            var salario = Number(document.querySelector('input#salario').value)
+            if(salario <= 0) {
+                alert("Valor de salário inválido")
+            }else {
+                nfuncionarios++
+                Somasalario = salario + Somasalario
+                var box = document.getElementById("box")
+                box.innerHTML += `A média de salários é : ${(Somasalario/nfuncionarios).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}`//método para transformar em valor monetário
+            }
+        }
+    </script>
+</body>
+</html>

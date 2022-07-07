@@ -28,11 +28,12 @@
         var maior = 0
         var menor = 10
         var box = document.getElementById("box")
-        var sexo = Number(document.getElementById("sexo").value)
-        alert(`sexo ${sexo}`)
-        var altura = Number(document.getElementById("altura").value)
+        var sexo = 0
+        
+        
         function mostra() {
-            alert(`sexo ${sexo}`)
+            sexo = Number(document.getElementById("sexo").value)
+            var altura = Number(document.getElementById("altura").value)
             if(sexo == 1) {
                 qntmulheres++
             }else if (sexo == 2){
@@ -52,7 +53,7 @@
             }
             mediahomens = soma/qnthomens
             if(qnthomens != 0) {
-                box.innerHTML += `A média de altura dos homens é: ${mediahomens}<br>`
+                box.innerHTML += `A média de altura dos homens é: ${mediahomens}m<br>`
             }
             if(maior != 0)
             box.innerHTML += `A maior altura cadastrada foi: ${maior}m e a menor foi: ${menor}m`

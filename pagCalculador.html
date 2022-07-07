@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Estilos/estilos.css">
+</head>
+<body>
+    <marquee scrollamount="10px">ANALISADOR DE PESSOAS</marquee>
+	<a href="index.html"><img class="setas" src="imagens/seta_volta.png" alt="seta de volta"></a><br>
+	<img src="imagens/azulejo.png" alt="graus" class="lado">
+	<h1>Esse é um programa que calcula quantos azulejos serão necessários para preencher uma parede.</h1>
+    <div id="box">
+        <!--Caixa de cadastro-->
+        <p>Digite a altura da parede: <input type="number" id="alturaparede" placeholder="3,5"> m</p>
+        <p>Digite a largura da parede: <input type="number" id="larguraparede" placeholder="1,5"> m</p>
+        <p>Digite a altura do azulejo: <input type="number" id="alturaAzulejo" placeholder="0,3"> m</p>
+        <p>Digite a largura do azulejo: <input type="number" id="larguraAzulejo" placeholder="0,3"> m</p>
+        <p><input type="button" value="Calcular" id="bot1"></p>
+    </div>
+    <script>
+        bot1 = document.getElementById('bot1')
+        bot1.addEventListener('click', mostra)
+        var areaparede = 0
+        var areaAzulejo = 0
+        function mostra() {
+            var altparede = Number(document.getElementById("alturaparede").value)
+            var larparede = Number(document.getElementById("larguraparede").value)
+            if(altparede <= 0 || larparede <= 0) {
+                alert('Valores da parede inválidos')
+            }
+            var altazulejo = Number(document.getElementById("alturaAzulejo").value)
+            var larazulejo = Number(document.getElementById("alturaAzulejo").value)
+            if(altazulejo <= 0 || larazulejo <= 0) {
+                alert('Valores do azulejo inválidos')
+            }
+            else {
+                areaAzulejo = altazulejo * larazulejo
+                areaparede = altparede * larparede
+                var box = document.getElementById("box")
+                box.innerHTML += `Serão necessários ${(areaparede/areaAzulejo).toFixed(0)+1} azulejos`
+            }
+        }
+    </script>
+</body>
+</html>
