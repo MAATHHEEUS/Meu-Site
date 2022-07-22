@@ -12,11 +12,14 @@
 	<a href="principal.html"><img class="setas" src="imagens/seta_volta.png" alt="seta de volta"></a><br>
 	<img src="imagens/lupa.png" alt="graus" class="lado">
 	<h1>Esse é um programa que analisa as pessoas cadastradas pelo usuário e retorna a pessoa com maior altura, a média de idade dos homens e a quantidade de mulheres cadastradas.</h1>
-    <div id="box">
+    <div>
         <!--Caixa de cadastro-->
         <p>Digite o sexo: (1-mulher 2-homem)<br><input type="number" id="sexo"></p>
         <p>Digite a altura: <br><input type="number" id="altura" placeholder="1,50"> m</p>
         <p><input type="button" value="Cadastrar" id="bot1"></p>
+    </div>
+    <div id="box">
+        <!--Resposta-->
     </div>
     <script>
         bot1 = document.getElementById('bot1')
@@ -30,8 +33,8 @@
         var box = document.getElementById("box")
         var sexo = 0
         
-        
         function mostra() {
+            box.innerHTML = ``
             sexo = Number(document.getElementById("sexo").value)
             var altura = Number(document.getElementById("altura").value)
             if(sexo == 1) {
@@ -42,11 +45,15 @@
             }else{
                 alert('Número do sexo inválido')
             }
-            if(altura > maior) {
+            if(altura <= 0) {
+                alert('Altura inválida')
+            }else{
+                if(altura > maior) {
                 maior = altura
-            }
-            if(altura < menor) {
-                menor = altura
+                }
+                if(altura < menor) {
+                    menor = altura
+                }
             }
             if(qntmulheres != 0) {
                 box.innerHTML += `A quantidade de mulheres cadastradas foi: ${qntmulheres}<br>`

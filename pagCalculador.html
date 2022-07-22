@@ -12,7 +12,7 @@
 	<a href="principal.html"><img class="setas" src="imagens/seta_volta.png" alt="seta de volta"></a><br>
 	<img src="imagens/azulejo.png" alt="graus" class="lado">
 	<h1>Esse é um programa que calcula quantos azulejos serão necessários para preencher uma parede.</h1>
-    <div id="box">
+    <div>
         <!--Caixa de cadastro-->
         <p>Digite a altura da parede: <input type="number" id="alturaparede" placeholder="3,5"> m</p>
         <p>Digite a largura da parede: <input type="number" id="larguraparede" placeholder="1,5"> m</p>
@@ -20,12 +20,18 @@
         <p>Digite a largura do azulejo: <input type="number" id="larguraAzulejo" placeholder="0,3"> m</p>
         <p><input type="button" value="Calcular" id="bot1"></p>
     </div>
+    <div id="box">
+        <!--Resposta-->
+    </div>
     <script>
         bot1 = document.getElementById('bot1')
         bot1.addEventListener('click', mostra)
         var areaparede = 0
         var areaAzulejo = 0
+        var box = document.getElementById("box")
+
         function mostra() {
+            box.innerHTML = ``
             var altparede = Number(document.getElementById("alturaparede").value)
             var larparede = Number(document.getElementById("larguraparede").value)
             if(altparede <= 0 || larparede <= 0) {
@@ -39,7 +45,7 @@
             else {
                 areaAzulejo = altazulejo * larazulejo
                 areaparede = altparede * larparede
-                var box = document.getElementById("box")
+                
                 box.innerHTML += `Serão necessários ${(areaparede/areaAzulejo).toFixed(0)+1} azulejos`
             }
         }

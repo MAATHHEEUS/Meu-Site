@@ -8,6 +8,53 @@
     <link rel="stylesheet" href="Estilos/estilos.css">
 </head>
 <body>
-    
+    <marquee scrollamount="10px">ANALISADOR DE MATRIZ</marquee>
+	<a href="principal.html"><img class="setas" src="imagens/seta_volta.png" alt="seta de volta"></a><br>
+	<img src="imagens/matriz.png" alt="graus" class="lado">
+	<h1>Esse é um programa que gera e analisa uma matriz quadrada e retorna seu maior valor</h1>
+    <div>
+        <!--Caixa de cadastro-->
+        <p>Digite o tamanho da matriz: <input type="number" id="n" placeholder="1"></p>
+        <p><input type="button" value="Analisar" id="bot1"></p>
+    </div>
+    <div id="box">
+        <!--Resposta-->
+    </div>
+    <script>
+        var bot1 = document.getElementById('bot1')
+        var matriz = []
+        bot1.addEventListener('click', mostra)
+        var box = document.getElementById('box')
+        tam = 0
+
+        function mostra() {
+            box.innerHTML = ``
+            matriz.splice(0, matriz.length)// esvazia a matriz
+            tam = Number(document.getElementById('n').value)
+            if(tam <= 0) {
+                alert("Não é possível matriz nula ou negativa!")
+            }else{
+                for(var i = 0; i < tam; i++){
+                matriz[i] = Math.floor(Math.random()*100+1) //gerar número aleatório entre 1 e 100!!! 
+                }
+                var maior = 0
+                mostraMatriz(matriz)
+                for(var i = 0; i < matriz.length; i++) {
+                    if(matriz[i] > maior){
+                        maior = matriz[i]
+                    }
+                }
+                box.innerHTML += `O maior valor da matriz é ${maior}`
+            }
+        }
+
+        function mostraMatriz(m) {
+            box.innerHTML += `Números gerados: |`
+            for(var i = 0; i < m.length; i++) {
+                box.innerHTML += `${m[i]}| `    
+            }
+            box.innerHTML += `<br>`
+        }
+    </script>
 </body>
 </html>
