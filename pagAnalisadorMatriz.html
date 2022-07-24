@@ -14,7 +14,7 @@
 	<h1>Esse é um programa que gera e analisa uma matriz quadrada e retorna seu maior valor</h1>
     <div>
         <!--Caixa de cadastro-->
-        <p>Digite o tamanho da matriz: <input type="number" id="n" placeholder="1"></p>
+        <p>Digite o tamanho da matriz quadrada: <input type="number" id="n" placeholder="1"></p>
         <p><input type="button" value="Analisar" id="bot1"></p>
     </div>
     <div id="box">
@@ -34,26 +34,22 @@
             if(tam <= 0) {
                 alert("Não é possível matriz nula ou negativa!")
             }else{
-                for(var i = 0; i < tam; i++){
-                matriz[i] = Math.floor(Math.random()*100+1) //gerar número aleatório entre 1 e 100!!! 
+                for(var i = 0; i < tam; i++){//criando a matriz quadrada
+                matriz[i] = new Array(tam)
                 }
                 var maior = 0
-                mostraMatriz(matriz)
-                for(var i = 0; i < matriz.length; i++) {
-                    if(matriz[i] > maior){
-                        maior = matriz[i]
+                for(var linha = 0; linha < tam; linha++) {//alimentando a matriz
+                    box.innerHTML += `<br>`
+                    for(var col = 0; col < tam; col++) {
+                        matriz[linha][col] = Math.floor(Math.random()*100+1) //gerar número aleatório entre 1 e 100!!!
+                        box.innerHTML += `${matriz[linha][col]} |`
+                        if(matriz[linha][col] > maior) {
+                            maior = matriz[linha][col]
+                        }
                     }
                 }
-                box.innerHTML += `O maior valor da matriz é ${maior}`
+                box.innerHTML += `<br>O maior valor da matriz é ${maior}`
             }
-        }
-
-        function mostraMatriz(m) {
-            box.innerHTML += `Números gerados: |`
-            for(var i = 0; i < m.length; i++) {
-                box.innerHTML += `${m[i]}| `    
-            }
-            box.innerHTML += `<br>`
         }
     </script>
 </body>
