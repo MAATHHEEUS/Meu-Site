@@ -1,33 +1,52 @@
-body {	color: green;
-		background-color: black;
-		font-size: 40px;
-		text-align: justify;}
+/* Novo Marquee*/
+#marquee {
+	-moz-animation: marquee 10s linear infinite;
+	-webkit-animation: marquee 10s linear infinite;
+	animation: marquee 10s linear infinite;
+  }
+  @-moz-keyframes marquee {
+	0% {
+	  transform: translateX(100%);
+	}
+	100% {
+	  transform: translateX(-100%);
+	}
+  }
+  @-webkit-keyframes marquee {
+	0% {
+	  transform: translateX(100%);
+	}
+	100% {
+	  transform: translateX(-100%);
+	}
+  }
+  @keyframes marquee {
+	0% {
+	  -moz-transform: translateX(100%);
+	  -webkit-transform: translateX(100%);
+	  transform: translateX(100%)
+	}
+	100% {
+	  -moz-transform: translateX(-100%);
+	  -webkit-transform: translateX(-100%);
+	  transform: translateX(-100%);
+	}
+  }
 
-marquee {	font-size: 50px;
-			font-family: "Brush Script MT", cursive;
-			border: 10px solid white;}
-
-h1, h2, h3, h4, h5, h6 {	font-size: 25px;}
-
-a:link	{color: yellow;}
-
-a:visited	{color:white;}
-
-img.lado{
-	float: left;
-	width: 50px;
-	height: 50px;
-}
- img.setas{
-	width: 50px;
-	height: 50px;
-	float: right;
- }
-
-p{
+  /* Botão do Linkedin*/
+  .libutton {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 7px;
+	text-align: center;
+	outline: none;
+	text-decoration: none !important;
+	color: #ffffff !important;
+	width: 200px;
+	height: 32px;
+	border-radius: 16px;
+	background-color: #0A66C2;
+	font-family: "SF Pro Text", Helvetica, sans-serif;
 	font-size: 20px;
-}
-
-ul{
-	font-size: 20px;
-}
+  }

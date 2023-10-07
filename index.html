@@ -1,21 +1,103 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Matheus</title>
     <link rel="shortcut icon" href="imagens/Coracao-Verde-Emoji.png" type="image/x-icon">
+    <link href="Estilos/estilos.css" rel="stylesheet">
+
+    <!-- Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 </head>
-<frameset rows="17%, 6%, *" noresize border="0">
-    <frame src="cabeçalho.html" scrolling="no"></frame>
-    <frame src="menu.html" scrolling="no"></frame>
-    <frameset cols="20%, *">
-        <frameset rows="60%, *">
-            <frame src="Linkedin.html" scrolling="no"></frame>
-            <frame src="MOBank.html" scrolling="no"></frame>
-        </frameset>
-        <frame src="principal.html" name="corpo"></frame>
-    </frameset>
-</frameset>
+
+<body class="bg-dark">
+    <!-- Marqueezão -->
+    <div class="border border-light border-5" style="font-family: Brush Script MT, cursive">
+        <h1 id="marquee" class="text-success">Página Matheus</h1>
+    </div>
+    <!-- Nav Bar (menu superior) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="imagens/Coracao-Verde-Emoji.png" width="30" height="30"
+                    alt="heart"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-success border" href="#">Principal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success border" href="#">Conversor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success border" href="#">Analisador de Pessoas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success border" href="#">Analisador de Funcionários</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success border" href="#">Azulejos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success border" href="#">Matriz Quadrada</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-success border" href="#">Currículo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo -->
+    <div class="container text-center m-2">
+        <div class="row">
+            <!-- Anúncios -->
+            <div class="text-success col-2 pt-5">
+                <!-- Botão do Linkedin -->
+                <a class="libutton"
+                    href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=matheus-carvalho-oliveira-ba0154194"
+                    target="_blank">Me siga no Linkedin</a>
+                <div class="badge-base LI-profile-badge pb-5" data-locale="pt_BR" data-size="medium" data-theme="dark"
+                    data-type="VERTICAL" data-vanity="matheus-carvalho-oliveira-ba0154194" data-version="v1">
+                    <a class="badge-base__link LI-simple-link"
+                        href="https://br.linkedin.com/in/matheus-carvalho-oliveira-ba0154194?trk=profile-badge"
+                        target="target"></a>
+                </div>
+                <script src="https://platform.linkedin.com/badges/js/profile.js" async defer
+                    type="text/javascript"></script>
+
+                <!-- MO Bank -->
+                <div class="pt-5">
+                    <a href="../MOBank/HTML/index.html" target="_blank">
+                        <p>Meu Banco Digital</p>
+                        <img src="../MOBank/IMAGENS/logo.png" alt="logo MOBank">
+                    </a>
+                </div>
+            </div>
+
+            <!-- PAG PRINCIPAL -->
+            <div class="text-success col-10" id="principal">Principal</div>
+        </div>
+    </div>
+
+    <script>
+        $("#principal").load("principal.html");
+    </script>
+</body>
+
 </html>
