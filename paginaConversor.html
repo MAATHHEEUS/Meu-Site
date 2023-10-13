@@ -1,40 +1,82 @@
-<html>
-	<head>
-		<title>Conversor de Graus</title>
-	</head>
-	<link href="Estilos/estilos.css" rel="stylesheet" type="text/css">
-	<body>
-		<marquee scrollamount="10px">CORVERSOR DE GRAUS</marquee>
-		<a href="principal.html"><img class="setas" src="imagens/seta_volta.png" alt="seta de volta"></a><br>
-		<img src="imagens/graus.png" alt="graus" class="lado">
-		<h1>Esse é um programa que converte graus celsius em outras unidades de medida como, Fahrenheit's, Kelvin's, etc.</h1>
-		<p>Digite o valor a ser convertido: <input type="number" name="valor" id="valor"> ºC <input type="button" value="Converter" id="bot1"></p>
-		<div id="F">
+<body>
+	<div style="text-align: justify;" class="container-fluid ps-5">
+		<div class="opacity-50">
+			<a onclick="$('#principal').load('principal.html');">
+				<img style="width: 25px; height: 25px;" class="rounded float-end" src="imagens/seta_volta.png"
+					title="Voltar a página principal">
+			</a>
+		</div>
+		<p class="text-center fs-3">CORVERSOR DE GRAUS</p>
+		<img style="width: 128px; height: 128px;" src="imagens/graus.png" class="rounded float-start">
+
+		<p class="fs-3">Esse é um programa que converte graus celsius em outras unidades de medida como,
+			Fahrenheit's, Kelvin's, Réaumur's e Rankine's.</p>
+
+		<div class="input-group">
+			<input type="text" class="form-control" name="valor" id="valor"
+				placeholder="Digite um valor em Graus. Ex.: 27,8">
+			<button id="bot1" class="btn btn-outline-secondary" type="button">CONVERTER</button>
+			<button id="bot2" class="btn btn-outline-secondary" type="button">LIMPAR</button>
+		</div>
+
+		<div id="F" class="container-fluid m-4">
 			<!--Resposta em Fahrenheit-->
 		</div>
-		<div id="K">
+		<div id="K" class="container-fluid m-4">
 			<!--Resposta em Kelvin-->
 		</div>
-		<div id="Re">
+		<div id="Re" class="container-fluid m-4">
 			<!--Resposta em Réaumur-->
 		</div>
-		<div id="Ra">
+		<div id="Ra" class="container-fluid m-4">
 			<!--Resposta em Rankine-->
 		</div>
 		<script>
+			// Declaração das variáveis
 			var bot1 = document.getElementById("bot1")
 			bot1.addEventListener('click', converte)
+
+			var bot2 = document.getElementById("bot2")
+			bot2.addEventListener('click', limpar)
+
+			var F = document.getElementById("F")
+			var K = document.querySelector("div#K")
+			var Re = document.getElementById("Re")
+			var Ra = document.getElementById("Ra")
+
 			function converte() {
-				var valor = Number(document.getElementById("valor").value)
-				var F = document.getElementById("F")
-				var K = document.querySelector("div#K")
-				var Re = document.getElementById("Re")
-				var Ra = document.getElementById("Ra")
-				F.innerHTML = `<p>${valor} ºC em Fahrenheit's é: ${valor*1.8+32} ºF</p>`
-				K.innerHTML = `<p>${valor} ºC em Kelvin's é: ${valor+237.15} K</p>`
-				Re.innerHTML = `<p>${valor} ºC em Réaumur é: ${valor*0.8} ºRé</p>`
-				Ra.innerHTML = `<p>${valor} ºC em Rankire é: ${(valor*1.8+32)+459.67} ºR</p>`
+				var valor = document.getElementById("valor").value
+				if (valor === "") {
+					F.innerHTML = `<p class="text-danger">Digite um valor!</p>`
+					return
+				}
+				valor = valor.replace(",", ".") // Troca vírgula por ponto
+				valor = Math.round(Number(valor) * 100) / 100 // Arredonda para duas casas decimais
+
+				F.innerHTML = `<p>${valor} ºC em Fahrenheit's equivale a: <b>${Math.round((valor * 1.8 + 32) * 100) / 100} ºF</b></p>`
+				K.innerHTML = `<p>${valor} ºC em Kelvin's equivale a: <b>${Math.round((valor + 237.15) * 100) / 100} K</b></p>`
+				Re.innerHTML = `<p>${valor} ºC em Réaumur equivale a: <b>${Math.round((valor * 0.8) * 100) / 100} ºRé</b></p>`
+				Ra.innerHTML = `<p>${valor} ºC em Rankire equivale a: <b>${Math.round(((valor * 1.8 + 32) + 459.67) * 100) / 100} ºR</b></p>`
 			}
+
+			function limpar() {
+				$("#valor").val("");
+				F.innerHTML = "";
+				K.innerHTML = "";
+				Re.innerHTML = "";
+				Ra.innerHTML = "";
+			}
+
+			// Função para aceitar somente números
+			$("#valor").on('input', function () {
+				var value = $(this).val().replace(/[^0-9.,]*/g, '');
+				value = value.replace(/\.{2,}/g, '.');
+				value = value.replace(/\.,/g, ',');
+				value = value.replace(/\,\./g, ',');
+				value = value.replace(/\,{2,}/g, ',');
+				value = value.replace(/\.[0-9]+\./g, '.');
+				$(this).val(value)
+			});
 		</script>
-	</body>
-</html>
+	</div>
+</body>

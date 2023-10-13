@@ -1,70 +1,120 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="Estilos/estilos.css">
-</head>
 <body>
-    <marquee scrollamount="10px">ANALISADOR DE PESSOAS</marquee>
-	<a href="principal.html"><img class="setas" src="imagens/seta_volta.png" alt="seta de volta"></a><br>
-	<img src="imagens/lupa.png" alt="graus" class="lado">
-	<h1>Esse é um programa que analisa as pessoas cadastradas pelo usuário e retorna a pessoa com maior altura, a média de idade dos homens e a quantidade de mulheres cadastradas.</h1>
-    <div>
-        <!--Caixa de cadastro-->
-        <p>Digite o sexo: (1-mulher 2-homem)<br><input type="number" id="sexo"></p>
-        <p>Digite a altura: <br><input type="number" id="altura" placeholder="1,50"> m</p>
-        <p><input type="button" value="Cadastrar" id="bot1"></p>
-    </div>
-    <div id="box">
-        <!--Resposta-->
-    </div>
-    <script>
-        bot1 = document.getElementById('bot1')
-        bot1.addEventListener('click', mostra)
-        var qntmulheres = 0
-        var qnthomens = 0
-        var soma = 0
-        var mediahomens = 0
-        var maior = 0
-        var menor = 10
-        var box = document.getElementById("box")
-        var sexo = 0
-        
-        function mostra() {
-            box.innerHTML = ``
-            sexo = Number(document.getElementById("sexo").value)
-            var altura = Number(document.getElementById("altura").value)
-            if(sexo == 1) {
-                qntmulheres++
-            }else if (sexo == 2){
-                qnthomens++
-                soma = soma + altura
-            }else{
-                alert('Número do sexo inválido')
+    <div style="text-align: justify;" class="container-fluid ps-5">
+        <div class="opacity-50">
+            <a onclick="$('#principal').load('principal.html');">
+                <img style="width: 25px; height: 25px;" class="rounded float-end" src="imagens/seta_volta.png"
+                    title="Voltar a página principal">
+            </a>
+        </div>
+        <p class="text-center fs-3">ANALISADOR DE PESSOAS</p>
+        <img style="height: 128px; width: 128px;" src="imagens/lupa.png" class="rounded float-start">
+
+        <p class="fs-3 mb-5">Esse é um programa que analisa as pessoas cadastradas pelo usuário.</p>
+
+        <div class="row mt-5">
+            <!--Caixa de cadastro-->
+            <div class="col-6">
+                <label for="sexo" class="form-label">Sexo</label>
+                <select class="form-select mb-3" id="sexo">
+                    <option value="1">Mulher</option>
+                    <option value="2">Homem</option>
+                </select>
+                <label for="altura" class="form-label">Altura</label>
+                <input type="text" class="form-control mb-3" id="altura" placeholder="1,50">
+                <p id="msgErro" class="text-danger"></p>
+
+                <div class="float-end">
+                    <button type="button" id="bot1" class="btn btn-success">CADASTRAR</button>
+                    <button type="button" id="bot2" class="btn btn-light">LIMPAR</button>
+                </div>
+            </div>
+
+            <div class="col-6" id="box">
+                <!--Resposta-->
+            </div>
+        </div>
+
+        <script>
+            // Declaração de variáveis
+            bot1 = document.getElementById('bot1')
+            bot1.addEventListener('click', mostra)
+
+            bot2 = document.getElementById('bot2')
+            bot2.addEventListener('click', limpar)
+
+            var qntmulheres = 0
+            var somaMulheres = 0
+            var mediaMulheres = 0
+            var qnthomens = 0
+            var somaHomens = 0
+            var mediahomens = 0
+            var maior = 0
+            var menor = 10
+            var box = document.getElementById("box")
+            var sexo = 0
+
+            function limpar() {
+                box.innerHTML = "";
+                $('#altura').val("")
+                $('#msgErro').text("")
             }
-            if(altura <= 0) {
-                alert('Altura inválida')
-            }else{
-                if(altura > maior) {
-                maior = altura
+
+            function mostra() {
+                box.innerHTML = ``
+                sexo = Number(document.getElementById("sexo").value)
+                var altura = document.getElementById("altura").value
+                altura = altura.replace(",", ".") // Troca vírgula por ponto
+                altura = Number(altura)
+
+                // Analisa Altura
+                if (altura <= 0) {
+                    $("#msgErro").text("Altura Inválida! Tente Novamente.")
+                    return
+                } else {
+                    if (altura > maior) {
+                        maior = altura
+                    }
+                    if (altura < menor) {
+                        menor = altura
+                    }
                 }
-                if(altura < menor) {
-                    menor = altura
+
+                // Analisa Sexo
+                if (sexo == 1) {
+                    somaMulheres = somaMulheres + altura
+                    qntmulheres++
+                } else if (sexo == 2) {
+                    qnthomens++
+                    somaHomens = somaHomens + altura
                 }
+
+                // Não deu erro limpa a msg de erro
+                $('#msgErro').text("")
+
+                if (qntmulheres != 0) {
+                    mediaMulheres = somaMulheres / qntmulheres
+                    box.innerHTML += `Quantidade de mulheres cadastradas: <b>${qntmulheres}</b><br>`
+                    box.innerHTML += `Média de altura das mulheres: <b>${Math.round(mediaMulheres * 100) / 100}m</b><br><hr>`
+                }
+                if (qnthomens != 0) {
+                    mediahomens = somaHomens / qnthomens
+                    box.innerHTML += `Quantidade de homens cadastradas: <b>${qnthomens}</b><br>`
+                    box.innerHTML += `Média de altura dos homens: <b>${Math.round(mediahomens * 100) / 100}m</b><br><hr>`
+                }
+                if (maior != 0)
+                    box.innerHTML += `Maior altura: <b>${maior}m</b><br> Menor Altura: <b>${menor}m</b>`
             }
-            if(qntmulheres != 0) {
-                box.innerHTML += `A quantidade de mulheres cadastradas foi: ${qntmulheres}<br>`
-            }
-            mediahomens = soma/qnthomens
-            if(qnthomens != 0) {
-                box.innerHTML += `A média de altura dos homens é: ${mediahomens}m<br>`
-            }
-            if(maior != 0)
-            box.innerHTML += `A maior altura cadastrada foi: ${maior}m e a menor foi: ${menor}m`
-        } 
-    </script>
+
+            // Função para aceitar somente números
+            $("#altura").on('input', function () {
+                var value = $(this).val().replace(/[^0-9.,]*/g, '');
+                value = value.replace(/\.{2,}/g, '.');
+                value = value.replace(/\.,/g, ',');
+                value = value.replace(/\,\./g, ',');
+                value = value.replace(/\,{2,}/g, ',');
+                value = value.replace(/\.[0-9]+\./g, '.');
+                $(this).val(value)
+            });
+        </script>
+    </div>
 </body>
-</html>
