@@ -23,45 +23,50 @@
 
 <body class="bg-dark">
     <!-- Marqueezão -->
-    <div class="border border-light border-5" style="font-family: Brush Script MT, cursive">
+    <div class="border border-light border-5 container-fluid" style="font-family: Brush Script MT, cursive">
         <h1 id="marquee" class="text-success">Página Matheus</h1>
     </div>
-    <!-- Nav Bar (menu superior) -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="imagens/Coracao-Verde-Emoji.png" width="30" height="30"
-                    alt="heart"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-success border" href="#">Principal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-success border" href="#">Conversor</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-success border" href="#">Analisador de Pessoas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-success border" href="#">Analisador de Funcionários</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-success border" href="#">Azulejos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-success border" href="#">Matriz Quadrada</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-success border" href="#">Currículo</a>
-                    </li>
-                </ul>
-            </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col">
+            <!-- Nav Bar (menu superior) -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#"><img src="imagens/Coracao-Verde-Emoji.png" width="30" height="30"
+                            alt="heart"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-success border" onclick="$('#principal').load('principal.html');">Principal</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-success border" onclick="$('#principal').load('paginaConversor.html');">Conversor</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-success border" onclick="$('#principal').load('pagAnalisadorPes.html');">Analisador de Pessoas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-success border" onclick="$('#principal').load('pagAnalisadorFunc.html');">Analisador de Funcionários</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-success border" onclick="$('#principal').load('pagCalculador.html');">Azulejos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-success border" onclick="$('#principal').load('pagAnalisadorMatriz.html');">Matriz Quadrada</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-success border" onclick="$('#principal').load('curriculo/curriculo.html');">Currículo</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
-    </nav>
+    </div>
 
     <!-- Conteúdo -->
     <div class="container text-center m-2">
@@ -69,7 +74,8 @@
             <!-- Anúncios -->
             <div class="text-success col-2 pt-5">
                 <!-- Botão do Linkedin -->
-                <a class="libutton"
+                <div class="container-fluid">
+                    <a class="libutton"
                     href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=matheus-carvalho-oliveira-ba0154194"
                     target="_blank">Me siga no Linkedin</a>
                 <div class="badge-base LI-profile-badge pb-5" data-locale="pt_BR" data-size="medium" data-theme="dark"
@@ -80,23 +86,42 @@
                 </div>
                 <script src="https://platform.linkedin.com/badges/js/profile.js" async defer
                     type="text/javascript"></script>
+                </div>
+                
 
                 <!-- MO Bank -->
-                <div class="pt-5">
+                <div class="pt-5 container-fluid">
                     <a href="../MOBank/HTML/index.html" target="_blank">
                         <p>Meu Banco Digital</p>
-                        <img src="../MOBank/IMAGENS/logo.png" alt="logo MOBank">
+                        <img class="img-fluid" src="../MOBank/IMAGENS/logo.png" alt="logo MOBank">
                     </a>
                 </div>
             </div>
 
             <!-- PAG PRINCIPAL -->
-            <div class="text-success col-10" id="principal">Principal</div>
+            <div class="text-success col-10 ps-5" id="principal">
+
+
+                
+                
+
+
+
+            </div>
         </div>
     </div>
 
     <script>
+        // Carregar págnina Principal
         $("#principal").load("principal.html");
+        
+        // Muda a cor dos links para branco quando o mouse passa
+        $("a").hover(function () {
+            $(this).addClass("text-light");
+            $(this).css("cursor", "pointer")
+        }, function () {
+            $(this).removeClass("text-light");
+        });
     </script>
 </body>
 
