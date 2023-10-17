@@ -1,43 +1,97 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="Estilos/estilos.css">
-</head>
 <body>
-    <marquee scrollamount="10px">ANALISADOR DE FUNCIONÁRIOS</marquee>
-	<a href="principal.html"><img class="setas" src="imagens/seta_volta.png" alt="seta de volta"></a><br>
-	<img src="imagens/funcionarios.png" alt="graus" class="lado">
-	<h1>Esse é um programa que analisa o salário dos funcionários e calcula a média.</h1>
-    <div>
+    <div style="text-align: justify;" class="container-fluid ps-5">
+        <div class="opacity-50">
+            <a onclick="$('#principal').load('principal.html');">
+                <img style="width: 25px; height: 25px;" class="rounded float-end" src="imagens/seta_volta.png"
+                    title="Voltar a página principal">
+            </a>
+        </div>
+        <p class="text-center fs-3">ANALISADOR DE FUNCIONÁRIOS</p>
+        <img style="height: 128px; width: 128px;" src="imagens/funcionarios.png" class="rounded float-start">
+
+        <p class="fs-3 mb-5">Esse é um programa que analisa o salário dos funcionários e calcula a média.<button
+                class="btn btn-success btn-sm ms-1" type="button" id="bot2">VER SALÁRIO MÍNIMO VIGENTE</button></p>
+
+        <div class="container-fluid" id="noticia" hidden>
+            <h1 id="title"></h1>
+            <a href="#" id="link" target="_blank">Notícia Completa</a>
+            <p id="introducao"></p>
+        </div>
+
         <!--Caixa de cadastro-->
-        <p>Digite o salário do funcionário R$:<input type="number" id="salario" placeholder="1200,00"></p>
-        <p><input type="button" value="Cadastrar" id="bot1"></p>
-    </div>
-    <div id="box">
-        <!--Resposta-->
+        <div class="container-fluid">
+            <label for="altura" class="form-label">Salário</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="text" class="form-control" id="salario" placeholder="1200">
+                <span class="input-group-text">,00</span>
+            </div>
+
+            <p id="msgErro" class="text-danger"></p>
+            <div class="d-grid gap-2">
+                <button id="bot1" class="btn btn-outline-success" type="button">CALCULAR</button>
+            </div>
+        </div>
+        <div class="container-fluid mt-3" id="box">
+            <!--Resposta-->
+        </div>
+
+
     </div>
     <script>
+        // Declarar variáveis
         bot1 = document.getElementById('bot1')
         bot1.addEventListener('click', mostra)
         var Somasalario = 0
         var nfuncionarios = 0
         var box = document.getElementById("box")
 
-        function mostra() {
-            box.innerHTML = ``
-            var salario = Number(document.querySelector('input#salario').value)
-            if(salario <= 0) {
-                alert("Valor de salário inválido")
-            }else {
-                nfuncionarios++
-                Somasalario = salario + Somasalario
-                box.innerHTML += `A média de salários é : ${(Somasalario/nfuncionarios).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}`//método para transformar em valor monetário
+        // Função para mostrar a pesquisa
+        $('#bot2').click(function () {
+            if ($('#noticia').attr("hidden")) {
+                $('#noticia').removeAttr('hidden')
+            } else {
+                $('#noticia').attr("hidden", "hidden")
             }
         }
+
+        )
+
+        function mostra() {
+            var salario = document.querySelector('input#salario').value
+            salario = salario.replace(",", ".") // Troca vírgula por ponto
+            salario = Number(salario)
+
+            if (salario <= 0 || isNaN(salario)) {
+                $("#msgErro").text("Valor de salário inválido! Tente Novamente.")
+                return
+            } else {
+                nfuncionarios++
+                Somasalario = salario + Somasalario
+                box.innerHTML = `A média de salários é:<b> ${(Somasalario / nfuncionarios).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</b>`//método para transformar em valor monetário
+            }
+        }
+
+        // Função para aceitar somente números
+        $("#salario").on('input', function () {
+            var value = $(this).val().replace(/[^0-9.,]*/g, '');
+            value = value.replace(/\.{2,}/g, '.');
+            value = value.replace(/\.,/g, ',');
+            value = value.replace(/\,\./g, ',');
+            value = value.replace(/\,{2,}/g, ',');
+            value = value.replace(/\.[0-9]+\./g, '.');
+            $(this).val(value)
+        });
+
+        // Função que recebe o retorno da Api de pesquisa
+        function hndlr(response) {
+            var item = response.items[0];
+            $("#title").text(item.title)
+            $("#introducao").text(item.snippet)
+            $('#link').attr('href', item.link)
+        }
     </script>
+
+    <!-- Scrip da Api de pesquisa -->
+    <script src="https://customsearch.googleapis.com/customsearch/v1?key=AIzaSyCvsr88qgmw3L9n4VMX7mHHWsCF7-J2lNU&lr=lang_pt&hl=pt-BR&cx=90fcb8be6d296483b&q=valor+salario+minimo&callback=hndlr"></script>
 </body>
-</html>

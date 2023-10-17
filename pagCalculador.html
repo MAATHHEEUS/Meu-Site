@@ -1,29 +1,55 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="Estilos/estilos.css">
-</head>
 <body>
-    <marquee scrollamount="10px">ANALISADOR DE PESSOAS</marquee>
-	<a href="principal.html"><img class="setas" src="imagens/seta_volta.png" alt="seta de volta"></a><br>
-	<img src="imagens/azulejo.png" alt="graus" class="lado">
-	<h1>Esse é um programa que calcula quantos azulejos serão necessários para preencher uma parede.</h1>
-    <div>
+    <div style="text-align: justify;" class="container-fluid ps-5">
+        <div class="opacity-50">
+            <a onclick="$('#principal').load('principal.html');">
+                <img style="width: 25px; height: 25px;" class="rounded float-end" src="imagens/seta_volta.png"
+                    title="Voltar a página principal">
+            </a>
+        </div>
+        <p class="text-center fs-3">Calculador de Azulejos</p>
+        <img style="height: 128px; width: 128px;" src="imagens/azulejo.png" class="rounded float-start">
+
+        <p class="fs-3 mb-5">Esse é um programa que calcula quantos azulejos serão necessários para preencher uma
+            parede.</p>
         <!--Caixa de cadastro-->
-        <p>Digite a altura da parede: <input type="number" id="alturaparede" placeholder="3,5"> m</p>
-        <p>Digite a largura da parede: <input type="number" id="larguraparede" placeholder="1,5"> m</p>
-        <p>Digite a altura do azulejo: <input type="number" id="alturaAzulejo" placeholder="0,3"> m</p>
-        <p>Digite a largura do azulejo: <input type="number" id="larguraAzulejo" placeholder="0,3"> m</p>
-        <p><input type="button" value="Calcular" id="bot1"></p>
-    </div>
-    <div id="box">
-        <!--Resposta-->
+        <div class="row">
+            <div class="col-6">
+                <label for="parede" class="form-label" style="font-size: 30px;">Parede</label>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="alturaparede" placeholder="3,5">
+                    <label for="alturaparede">Altura em metros</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="larguraparede" placeholder="3,5">
+                    <label for="alturaparede">Largura em metros</label>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <label for="parede" class="form-label" style="font-size: 30px;">Azulejo</label>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="alturaAzulejo" placeholder="3,5">
+                    <label for="alturaparede">Altura em centímetros</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="larguraAzulejo" placeholder="3,5">
+                    <label for="alturaparede">Largura em centímetros</label>
+                </div>
+            </div>
+
+            <div id="box" class="container-fluid">
+                <!--Resposta-->
+            </div>
+
+            <p id="msgErro" class="text-danger"></p>
+            <div class="d-grid gap-2">
+                <button id="bot1" class="btn btn-outline-success" type="button">CALCULAR</button>
+                <button id="bot2" class="btn btn-outline-light" type="button">LIMPAR</button>
+            </div>
+        </div>
     </div>
     <script>
+        // Declara variáveis 
         bot1 = document.getElementById('bot1')
         bot1.addEventListener('click', mostra)
         var areaparede = 0
@@ -32,23 +58,63 @@
 
         function mostra() {
             box.innerHTML = ``
-            var altparede = Number(document.getElementById("alturaparede").value)
-            var larparede = Number(document.getElementById("larguraparede").value)
-            if(altparede <= 0 || larparede <= 0) {
-                alert('Valores da parede inválidos')
+
+            // Alimenta as variáveis da parede
+            var altparede = document.getElementById("alturaparede").value
+            altparede = altparede.replace(",", ".")
+            altparede = Number(altparede)
+
+            var larparede = document.getElementById("larguraparede").value
+            larparede = larparede.replace(",", ".")
+            larparede = Number(larparede)
+
+            // Valida dados da parede
+            if (altparede <= 0 || larparede <= 0 || isNaN(altparede) || isNaN(larparede)) {
+                $('#msgErro').text('Valores da parede inválidos')
+                return
             }
-            var altazulejo = Number(document.getElementById("alturaAzulejo").value)
-            var larazulejo = Number(document.getElementById("alturaAzulejo").value)
-            if(altazulejo <= 0 || larazulejo <= 0) {
-                alert('Valores do azulejo inválidos')
+
+            // Alimenta as variáveis do azulejo
+            var altazulejo = document.getElementById("alturaAzulejo").value
+            altazulejo = altazulejo.replace(",", ".")
+            altazulejo = Number(altazulejo)
+
+            var larazulejo = document.getElementById("alturaAzulejo").value
+            larazulejo = larazulejo.replace(",", ".")
+            larazulejo = Number(larazulejo)
+
+            // Valida dados do azulejo
+            if (altazulejo <= 0 || larazulejo <= 0 || isNaN(altazulejo) || isNaN(larazulejo)) {
+                $('#msgErro').text('Valores do azulejo inválidos')
+                return
             }
+            // Retorna o calculo
             else {
-                areaAzulejo = altazulejo * larazulejo
+                areaAzulejo = (altazulejo * larazulejo) / 100
                 areaparede = altparede * larparede
-                
-                box.innerHTML += `Serão necessários ${(areaparede/areaAzulejo).toFixed(0)+1} azulejos`
+
+                box.innerHTML += `Serão necessários <b>${(areaparede / areaAzulejo).toFixed(0) + 1}</b> azulejos para cobrir uma parede de ${areaparede.toFixed(2)}m². `
             }
         }
+
+        $("#bot2").click(
+
+            function () {
+                $("input").val("");
+                $("#msgErro").text("");
+                box.innerHTML = ``
+            });
+
+        // Função para aceitar somente números
+        $("input").on('input', function () {
+            var value = $(this).val().replace(/[^0-9.,]*/g, '');
+            value = value.replace(/\.{2,}/g, '.');
+            value = value.replace(/\.,/g, ',');
+            value = value.replace(/\,\./g, ',');
+            value = value.replace(/\,{2,}/g, ',');
+            value = value.replace(/\.[0-9]+\./g, '.');
+            $(this).val(value)
+        });
     </script>
+
 </body>
-</html>

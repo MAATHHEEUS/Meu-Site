@@ -1,26 +1,37 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="Estilos/estilos.css">
-</head>
 <body>
-    <marquee scrollamount="10px">ANALISADOR DE MATRIZ</marquee>
-	<a href="principal.html"><img class="setas" src="imagens/seta_volta.png" alt="seta de volta"></a><br>
-	<img src="imagens/matriz.png" alt="graus" class="lado">
-	<h1>Esse é um programa que gera e analisa uma matriz quadrada e retorna seu maior valor</h1>
-    <div>
+    <div style="text-align: justify;" class="container-fluid ps-5">
+        <div class="opacity-50">
+            <a onclick="$('#principal').load('principal.html');">
+                <img style="width: 25px; height: 25px;" class="rounded float-end" src="imagens/seta_volta.png"
+                    title="Voltar a página principal">
+            </a>
+        </div>
+        <p class="text-center fs-3">ANALISADOR DE MATRIZ</p>
+        <img style="height: 128px; width: 128px;" src="imagens/matriz.png" class="rounded float-start">
+
+        <p class="fs-3 mb-5">Esse é um programa que gera e analisa uma matriz quadrada e diz seu maior valor.</p>
+
         <!--Caixa de cadastro-->
-        <p>Digite o tamanho da matriz quadrada: <input type="number" id="n" placeholder="1"></p>
-        <p><input type="button" value="Analisar" id="bot1"></p>
-    </div>
-    <div id="box">
-        <!--Resposta-->
+        <div class="container-fluid">
+            <label for="tamMatriz" class="form-label">Tamanho da matriz</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><img src="imagens/Coracao-Verde-Emoji.png" width="20" height="20"
+                        alt="heart"></span>
+                <input type="text" class="form-control" id="n" placeholder="10" maxlength="3" size="3">
+                <button class="btn btn-outline-secondary" type="button" id="bot1">GERAR</button>
+                <button class="btn btn-outline-secondary" type="button" onclick="limpar()">LIMPAR</button>
+            </div>
+
+        </div>
+
+        <p id="msgErro" class="text-danger"></p>
+
+        <div id="box" class="table-responsive">
+            <!--Resposta-->
+        </div>
     </div>
     <script>
+        // Declaração de variáveis
         var bot1 = document.getElementById('bot1')
         var matriz = []
         bot1.addEventListener('click', mostra)
@@ -31,26 +42,53 @@
             box.innerHTML = ``
             matriz.splice(0, matriz.length)// esvazia a matriz
             tam = Number(document.getElementById('n').value)
-            if(tam <= 0) {
-                alert("Não é possível matriz nula ou negativa!")
-            }else{
-                for(var i = 0; i < tam; i++){//criando a matriz quadrada
-                matriz[i] = new Array(tam)
+            if (tam <= 0 || isNaN(tam)) {
+                $("#msgErro").text("Não é possível gerar matriz com tamanho nulo!")
+                return
+            } else if (tam > 100) {
+                $("#msgErro").text("Tamanho máximo suportado: 100!")
+                return
+            } else {
+                $("#msgErro").text("")
+                for (var i = 0; i < tam; i++) {//criando a matriz quadrada
+                    matriz[i] = new Array(tam)
                 }
+
                 var maior = 0
-                for(var linha = 0; linha < tam; linha++) {//alimentando a matriz
-                    box.innerHTML += `<br>`
-                    for(var col = 0; col < tam; col++) {
-                        matriz[linha][col] = Math.floor(Math.random()*100+1) //gerar número aleatório entre 1 e 100!!!
-                        box.innerHTML += `${matriz[linha][col]} |`
-                        if(matriz[linha][col] > maior) {
+                var table = `<table class="table table-dark table-bordered border-success"><tbody>`;
+
+                for (var linha = 0; linha < tam; linha++) {//alimentando a matriz
+                    table += `<tr>`;
+                    for (var col = 0; col < tam; col++) {
+                        matriz[linha][col] = Math.floor(Math.random() * 100 + 1) //gerar número aleatório entre 1 e 100!!!
+                        table += `<td>${matriz[linha][col]}</td>`
+                        if (matriz[linha][col] > maior) {
                             maior = matriz[linha][col]
                         }
                     }
+                    table += `</tr>`
                 }
-                box.innerHTML += `<br>O maior valor da matriz é ${maior}`
+
+                table += `</tbody></table>`
+                box.innerHTML = table
+                box.innerHTML += `Maior valor:<b> ${maior}</b>`
             }
         }
+
+        function limpar() {
+            box.innerHTML = "";
+            $('#n').val("")
+        }
+
+        // Função para aceitar somente números
+        $("#n").on('input', function () {
+            var value = $(this).val().replace(/[^0-9]*/g, '');
+            value = value.replace(/\.{2,}/g, '.');
+            value = value.replace(/\.,/g, ',');
+            value = value.replace(/\,\./g, ',');
+            value = value.replace(/\,{2,}/g, ',');
+            value = value.replace(/\.[0-9]+\./g, '.');
+            $(this).val(value)
+        });
     </script>
 </body>
-</html>
