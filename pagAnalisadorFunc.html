@@ -90,6 +90,14 @@
             $("#introducao").text(item.snippet)
             $('#link').attr('href', item.link)
         }
+
+        // Muda a cor dos links para branco quando o mouse passa
+        $("a").hover(function () {
+            $(this).addClass("text-light");
+            $(this).css("cursor", "pointer")
+        }, function () {
+            $(this).removeClass("text-light");
+        });
     </script>
 
     <!-- Scrip da Api de pesquisa -->

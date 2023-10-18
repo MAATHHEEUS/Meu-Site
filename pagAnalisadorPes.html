@@ -116,6 +116,14 @@
                 value = value.replace(/\.[0-9]+\./g, '.');
                 $(this).val(value)
             });
+
+            // Muda a cor dos links para branco quando o mouse passa
+            $("a").hover(function () {
+                $(this).addClass("text-light");
+                $(this).css("cursor", "pointer")
+            }, function () {
+                $(this).removeClass("text-light");
+            });
         </script>
     </div>
 </body>
